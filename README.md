@@ -69,3 +69,23 @@ python gen_diphones.py
 ```
 python play_words.py
 ```
+
+## Added 2 new files
+Usage of create_soundlist.py
+
+```
+python create_soundlist.py wavfile.wav transcript.txt output_folder left_pad right_pad
+```
+eg
+```
+python create_soundlist.py dave/dave1.wav dave/dave1.txt test_out .0001 .0001
+```
+
+Usage of play_words_2
+```
+python3 play_words_2.py diphone_list_folder 'text to transcribe' dictionary diphone_gap word_gap output_file_name [--generate_file]
+```
+eg
+```
+python3 play_words_2.py test_out 'you think that i' split.txt .02 .01 output --generate_file
+```
