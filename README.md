@@ -95,10 +95,12 @@ python3 play_words_2.py test_out 'you think that i' split.txt .02 .01 output --g
 Usage 
 
 ```
-python3 sound_speed.py input.wav(that already exists) output.wav(the new file we ant to write to)
+python3 sound_speed.py input.wav(that already exists) output.wav(the new file we ant to write to) speedfactor(float variable to alter the speed)
 ```
 
 eg
 ```
-python3 sound_speed.py inputsounds.wav outputmade.wav
+python3 sound_speed.py inputsounds.wav outputmade.wav 0.6
+
+This makes the outputmade.wav to be at 60% speed of the inputsounds.wav
 ```
