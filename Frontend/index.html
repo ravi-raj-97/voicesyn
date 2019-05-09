@@ -177,8 +177,6 @@
         </div> <!-- end about-stats -->
 
     </section> <!-- end s-about -->
-
-
     <!-- services
     ================================================== -->
     <section id='train' class="s-services light-gray">
@@ -193,9 +191,10 @@
         <div class="row" data-aos="fade-up">
             <div class="col-full">
                 <p class="lead">
-               Upload the .wav text file and .txt file corressponding to the speech in the audio input.
+               Record the speech of the User reading the content of the given file. Upload the .wav file and the name of the corresponding speaker in the audio input.
                 </p>
             </div>
+            <button class="btn btn--stroke full-width"><i class="icon-download"></i>Download transcript file</button>
         </div> <!-- end about-desc -->
 
         <div class="row services-list block-1-3 block-m-1-2 block-tab-full">
@@ -218,22 +217,19 @@
             </div>
             <div class="col-block service-item" data-aos="fade-up">
                 <div class="service-icon  service-icon--illustration">
-                    <i class="icon-form"></i>
+                    <i class="icon-user"></i>
                 </div>
                 <div class="service-text">
-                    <h3 class="h4">Text Transcript</h3>
-                    <p>Please upload the transcript file in the <b>.txt</b> format.</p>
+                    <h3 class="h4">Speaker Name</h3>
+                    <p>Please enter the name of the <b>speaker</b> of the wav file.</p>
                 </div>
                 <div class="div--right">
-                <input class="full-width" type="text" placeholder="Text path" id="txtpath">
-                <button class="btn--primary" type="button" title="Upload file from device">
-                    <i class="icon-search"></i>
-                    Select File
+                <input class="full-width" type="text" placeholder="Speaker Name" id="speakername">
+                <button class="btn--primary" type="submit" title="Upload file from device">
+                	<i class="icon-user-add"></i>
+                	Add user
                 </button>
                 </div>
-            </div>
-            <div class="div--center">
-            <input class="btn--primary" type="submit" value="Submit">
             </div>
         </form>
         </div> <!-- end services-list -->
@@ -254,7 +250,14 @@
         <div class="row" data-aos="fade-up">
             <div class="col-full">
                 <p class="lead">
-               Type the text, and hit the play button.
+                	Just a few steps to follow:
+                <ol>
+               <li>Type the text</li>
+               <li>Select a voice</li>
+               <li>Submit the text</li>
+               <li>Play the synthesized voice</li>
+               <li>Download the generated output</li>
+               </ol>
                 </p>
             </div>
         </div> <!-- end about-desc -->
@@ -272,11 +275,16 @@
                     </div>
             </div>
         <div class="col-block service-item div--center div--vc" data-aos="fade-up">
-            <br>
-            <br>
-            <br>
-            <br>
-            <br>
+            <div>
+            <label for="sampleRecipientInput">Select voice</label>
+            <div class="cl-custom-select">
+                <select class="full-width" id="voiceselect">
+                    <option value="Option 1">Questions</option>
+                    <option value="Option 2">Report</option>
+                    <option value="Option 3">Others</option>
+                </select>
+            </div>
+                    </div>
             <div>
             <button class="btn--primary">
                 <i class="icon-upload"></i>
