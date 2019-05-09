@@ -100,5 +100,5 @@ python3 sound_speed.py input.wav(that already exists) output.wav(the new file we
 
 eg
 ```
-python sound_speed.py inputsounds.wav outputmade.wav
+python3 sound_speed.py inputsounds.wav outputmade.wav
 ```
