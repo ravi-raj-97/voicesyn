@@ -1,34 +1,49 @@
 <!DOCTYPE html>
 <html class="no-js" lang="en">
 <head>
-
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/main.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/base.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/fonts.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/vendor.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/micons/micons.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/micons/fonts/icomoon.eot') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/micons/fonts/icomoon.svg') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/micons/fonts/icomoon.ttf') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/micons/fonts/icomoon.woff') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/font-awesome/css/fa-brands.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/font-awesome/css/fa-brands.min.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/font-awesome/css/fa-regular.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/font-awesome/css/fa-regular.min.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/font-awesome/css/fa-solid.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/font-awesome/css/fa-solid.min.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/font-awesome/css/fontawesome.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/font-awesome/css/fontawesome.min.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/font-awesome/css/fontawesome-all.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/font-awesome/css/fontawesome-all.min.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/font-awesome/webfonts/fa-brands-400.eot') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/font-awesome/webfonts/fa-brands-400.svg') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/font-awesome/webfonts/fa-brands-400.ttf') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/font-awesome/webfonts/fa-brands-400.woff') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/font-awesome/webfonts/fa-brands-400.woff2') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/font-awesome/webfonts/fa-regular-400.eot') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/font-awesome/webfonts/fa-regular-400.svg') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/font-awesome/webfonts/fa-regular-400.ttf') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/font-awesome/webfonts/fa-regular-400.woff') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/font-awesome/webfonts/fa-regular-400.woff2') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/font-awesome/webfonts/fa-solid-900.eot') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/font-awesome/webfonts/fa-solid-900.svg') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/font-awesome/webfonts/fa-solid-900.ttf') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/font-awesome/webfonts/fa-solid-900.woff') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/font-awesome/webfonts/fa-solid-900.woff2') }}">
+    <script type="text/javascript" src="{{ url_for('static', filename='js/modernizr.js') }}"></script>
+    <script type="text/javascript" src="{{ url_for('static', filename='js/pace.min.js') }}"></script>
+    <link rel="shortcut icon" href="{{ url_for('static', filename='favicon.ico') }}" type="image/x-icon">
+    <link rel="icon" href="{{ url_for('static', filename='favicon.ico') }}" type="image/x-icon">
     <!--- basic page needs
     ================================================== -->
     <meta charset="utf-8">
     <title>Custom Voice Synthesizer</title>
-    <meta name="description" content="">
-    <meta name="author" content="">
-
-    <!-- mobile specific metas
-    ================================================== -->
     <meta name="viewport" content="width=device-width, initial-scale=1">
-
-    <!-- CSS
-    ================================================== -->
-    <link rel="stylesheet" href="css/base.css">
-    <link rel="stylesheet" href="css/vendor.css">
-    <link rel="stylesheet" href="css/main.css">
-
-    <!-- script
-    ================================================== -->
-    <script src="js/modernizr.js"></script>
-    <script src="js/pace.min.js"></script>
-
-    <!-- favicons
-    ================================================== -->
-    <link rel="shortcut icon" href="favicon.ico" type="image/x-icon">
-    <link rel="icon" href="favicon.ico" type="image/x-icon">
-
 </head>
 
 <body id="top">
@@ -39,7 +54,7 @@
 
         <div class="header-logo">
             <a class="site-logo" href="index.html">
-                <img src="images/logo.svg" alt="Homepage">
+                <img src="{{ url_for('static', filename='logo.svg') }}" alt="Homepage">
             </a>
         </div> <!-- end header-logo -->
 
@@ -73,7 +88,7 @@
 
     <!-- home
     ================================================== -->
-    <section id="home" class="s-home target-section" data-parallax="scroll" data-image-src="images/hero-bg.jpg" data-natural-width=3000 data-natural-height=2000 data-position-y=top>
+    <section id="home" class="s-home target-section" data-parallax="scroll" data-image-src="{{ url_for('static', filename='background.jpg') }}" data-natural-width=3000 data-natural-height=2000 data-position-y=top>
 
         <div class="shadow-overlay"></div>
 
@@ -177,6 +192,8 @@
         </div> <!-- end about-stats -->
 
     </section> <!-- end s-about -->
+
+
     <!-- services
     ================================================== -->
     <section id='train' class="s-services light-gray">
@@ -226,8 +243,8 @@
                 <div class="div--right">
                 <input class="full-width" type="text" placeholder="Speaker Name" id="speakername">
                 <button class="btn--primary" type="submit" title="Upload file from device">
-                	<i class="icon-user-add"></i>
-                	Add user
+                    <i class="icon-user-add"></i>
+                    Add user
                 </button>
                 </div>
             </div>
@@ -250,7 +267,7 @@
         <div class="row" data-aos="fade-up">
             <div class="col-full">
                 <p class="lead">
-                	Just a few steps to follow:
+                    Just a few steps to follow:
                 <ol>
                <li>Type the text</li>
                <li>Select a voice</li>
@@ -355,6 +372,7 @@
                             </tr>
                             </tbody>
                     </table>
+                    <br>
                     <div>
                 <h3 class="subhead subhead--light">Project repository</h3>
                 <ul class="contact-social">
@@ -376,9 +394,8 @@
     </div>
     <!-- Java Script
     ================================================== -->
-    <script src="js/jquery-3.2.1.min.js"></script>
-    <script src="js/plugins.js"></script>
-    <script src="js/main.js"></script>
+    <script type="text/javascript" src="{{ url_for('static', filename='js/jquery-3.2.1.min.js') }}"></script>
+    <script type="text/javascript" src="{{ url_for('static', filename='js/plugins.js') }}"></script>
+    <script type="text/javascript" src="{{ url_for('static', filename='js/main.js') }}"></script>
 </body>
-
 </html>
