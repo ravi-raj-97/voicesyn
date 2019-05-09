@@ -1,0 +1,384 @@
+<!DOCTYPE html>
+<html class="no-js" lang="en">
+<head>
+
+    <!--- basic page needs
+    ================================================== -->
+    <meta charset="utf-8">
+    <title>Custom Voice Synthesizer</title>
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <!-- mobile specific metas
+    ================================================== -->
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <!-- CSS
+    ================================================== -->
+    <link rel="stylesheet" href="css/base.css">
+    <link rel="stylesheet" href="css/vendor.css">
+    <link rel="stylesheet" href="css/main.css">
+
+    <!-- script
+    ================================================== -->
+    <script src="js/modernizr.js"></script>
+    <script src="js/pace.min.js"></script>
+
+    <!-- favicons
+    ================================================== -->
+    <link rel="shortcut icon" href="favicon.ico" type="image/x-icon">
+    <link rel="icon" href="favicon.ico" type="image/x-icon">
+
+</head>
+
+<body id="top">
+
+    <!-- header
+    ================================================== -->
+    <header class="s-header">
+
+        <div class="header-logo">
+            <a class="site-logo" href="index.html">
+                <img src="images/logo.svg" alt="Homepage">
+            </a>
+        </div> <!-- end header-logo -->
+
+        <nav class="header-nav">
+
+            <a href="#0" class="header-nav__close" title="close"><span>Close</span></a>
+
+            <div class="header-nav__content">
+                <h3>Custom Voice <br/> Generator</h3>
+                
+                <ul class="header-nav__list">
+                    <li class="current"><a class="smoothscroll"  href="#home" title="home">Home</a></li>
+                    <li><a class="smoothscroll"  href="#about" title="about">About</a></li>
+                    <li><a class="smoothscroll"  href="#train" title="train">Train</a></li>
+                    <li><a class="smoothscroll"  href="#generate" title="generate">Generate</a></li>
+                    <li><a class="smoothscroll"  href="#contact" title="contact">Team</a></li>
+                </ul>
+    
+                <p>Custom Voice Genrator is a system that trains a system <a href='#0'>on a given voice</a> and then synthesises speech from the sounds of the given voice.</p>
+
+            </div> <!-- end header-nav__content -->
+
+        </nav> <!-- end header-nav -->
+
+        <a class="header-menu-toggle" href="#0">
+            <span class="header-menu-icon"></span>
+        </a>
+
+    </header> <!-- end s-header -->
+
+
+    <!-- home
+    ================================================== -->
+    <section id="home" class="s-home target-section" data-parallax="scroll" data-image-src="images/hero-bg.jpg" data-natural-width=3000 data-natural-height=2000 data-position-y=top>
+
+        <div class="shadow-overlay"></div>
+
+        <div class="home-content">
+
+            <div class="row home-content__main">
+                <h1>
+                Welcome to the future<br/>
+                of Text-to-Speech<br/>
+                systems.
+                </h1>
+
+                <p>
+                We recreate a given voice <br>
+                that will make the system speak like you.
+                </p>
+            </div> <!-- end home-content__main -->
+
+        </div> <!-- end home-content -->
+
+        <ul class="home-sidelinks">
+            <li><a class="smoothscroll" href="#about">About<span>What is the project</span></a></li>
+            <li><a class="smoothscroll" href="#train">Train<span>Give us the voice</span></a></li>
+            <li><a  class="smoothscroll" href="#generate">Generate<span>Try the voice</span></a></li>
+        </ul> <!-- end home-sidelinks -->
+
+
+        <a href="#about" class="home-scroll smoothscroll">
+            <span class="home-scroll__text">Scroll Down</span>
+            <span class="home-scroll__icon"></span>
+        </a> <!-- end home-scroll -->
+
+    </section> <!-- end s-home -->
+
+
+    <!-- about
+    ================================================== -->
+    <section id='about' class="s-about">
+
+        <div class="row section-header" data-aos="fade-up">
+            <div class="col-full">
+                <h3 class="subhead">What is the project</h3>
+                <h1 class="display-1">We have built a system that takes a voice and speaks back in the same voice, almost!</h1>
+            </div>
+        </div> <!-- end section-header -->
+
+        <div class="row" data-aos="fade-up">
+            <div class="col-full">
+                <p class="lead">
+                Text to speech systems have conventionally been around for a while now, but always use parameters usch as pitch, frequency, etc. to generate voice using the in-built system processor. But with increasing demand for Human-Computer-Interaction(HCI), custom voices are the necessity. We have tried a basic version of this system, which can be explained in the four following steps.
+                </p>
+            </div>
+        </div> <!-- end about-desc -->
+
+        <div class="row">
+                
+            <div class="about-process process block-1-2 block-tab-full">
+
+                <div class="process__vline-left"></div>
+                <div class="process__vline-right"></div>
+
+                <div class="col-block process__col" data-item="1" data-aos="fade-up">
+                    <div class="process__text">
+                        <h4>Get the voice and<br/> it's transcript</h4>
+
+                        <p>
+                        The user provides the system with a sample voice file and its corresponding text transcript.
+                        </p>
+                    </div>
+                </div>
+                <div class="col-block process__col" data-item="2" data-aos="fade-up">
+                    <div class="process__text">
+                        <h4>Forced Alignment</h4>
+
+                        <p>
+                        The system runs forced alignment(an ML technique) to align and get the timings of the words, and the corresponding sounds that constitute the word.
+                        </p>
+                    </div>
+                </div>
+                <div class="col-block process__col" data-item="3" data-aos="fade-up">
+                    <div class="process__text">
+                        <h4>Making the Database</h4>
+
+                        <p>
+                        Based on the timings that are found, the sounds are extracted and stored in a directory. Usually one directory for one speaker.
+                        </p>
+                    </div>
+                </div>
+                <div class="col-block process__col" data-item="4" data-aos="fade-up">
+                    <div class="process__text">
+                        <h4>Synthesize</h4>
+
+                        <p>
+                        When the TTS part begins, the input text is split into its corresponding diphones. The required diphones are extracted from the directory and played back in a sequence from the directory.
+                        </p>
+                    </div>
+                </div>
+
+            </div> <!-- end process -->
+
+        </div> <!-- end about-stats -->
+
+    </section> <!-- end s-about -->
+    <!-- services
+    ================================================== -->
+    <section id='train' class="s-services light-gray">
+
+        <div class="row section-header" data-aos="fade-up">
+            <div class="col-full">
+                <h3 class="subhead">Train</h3>
+                <h1 class="display-1">Give us your voice recording and text files</h1>
+            </div>
+        </div> <!-- end section-header -->
+
+        <div class="row" data-aos="fade-up">
+            <div class="col-full">
+                <p class="lead">
+               Record the speech of the User reading the content of the given file. Upload the .wav file and the name of the corresponding speaker in the audio input.
+                </p>
+            </div>
+            <button class="btn btn--stroke full-width"><i class="icon-download"></i>Download transcript file</button>
+        </div> <!-- end about-desc -->
+
+        <div class="row services-list block-1-3 block-m-1-2 block-tab-full">
+        <form id="take input">
+            <div class="col-block service-item " data-aos="fade-up">
+                <div class="service-icon service-icon--brand-identity">
+                    <i class="icon-microphone"></i>
+                </div>
+                <div class="service-text">
+                    <h3 class="h4">Audio File</h3>
+                    <p>Please upload the audio file in the <b>.wav</b> format.</p>
+                </div>
+                    <div class="div--left">
+                            <input class="full-width" type="text" placeholder="Audio path" id="wavpath">
+                    <button class="btn--primary" type="button" title="Upload file from device">
+                    <i class="icon-search"></i>
+                    Select File
+                    </button>
+                    </div>
+            </div>
+            <div class="col-block service-item" data-aos="fade-up">
+                <div class="service-icon  service-icon--illustration">
+                    <i class="icon-user"></i>
+                </div>
+                <div class="service-text">
+                    <h3 class="h4">Speaker Name</h3>
+                    <p>Please enter the name of the <b>speaker</b> of the wav file.</p>
+                </div>
+                <div class="div--right">
+                <input class="full-width" type="text" placeholder="Speaker Name" id="speakername">
+                <button class="btn--primary" type="submit" title="Upload file from device">
+                	<i class="icon-user-add"></i>
+                	Add user
+                </button>
+                </div>
+            </div>
+        </form>
+        </div> <!-- end services-list -->
+
+    </section> <!-- end s-services -->
+
+
+    <!-- works
+    ================================================== -->
+    <section id='generate' class="s-works">
+                
+        <div class="row section-header" data-aos="fade-up">
+            <div class="col-full">
+                <h3 class="subhead">Generate Speech</h3>
+                <h1 class="display-1">Now that the system has your voice, try typing words for the system to say</h1>
+            </div>
+        </div> <!-- end section-header -->
+        <div class="row" data-aos="fade-up">
+            <div class="col-full">
+                <p class="lead">
+                	Just a few steps to follow:
+                <ol>
+               <li>Type the text</li>
+               <li>Select a voice</li>
+               <li>Submit the text</li>
+               <li>Play the synthesized voice</li>
+               <li>Download the generated output</li>
+               </ol>
+                </p>
+            </div>
+        </div> <!-- end about-desc -->
+
+        <div class="row services-list block-1-3 block-m-1-2 block-tab-full">
+        <form id="take input">
+            <div class="col-block service-item " data-aos="fade-up">
+                
+                <div class="service-text">
+                    <h3 class="h4">Message</h3>
+                    <p>Please type the text here.</p>
+                </div>
+                    <div class="div--left">
+                           <textarea class="full-width" placeholder="Your message" id="texttoconvert"></textarea>
+                    </div>
+            </div>
+        <div class="col-block service-item div--center div--vc" data-aos="fade-up">
+            <div>
+            <label for="sampleRecipientInput">Select voice</label>
+            <div class="cl-custom-select">
+                <select class="full-width" id="voiceselect">
+                    <option value="Option 1">Questions</option>
+                    <option value="Option 2">Report</option>
+                    <option value="Option 3">Others</option>
+                </select>
+            </div>
+                    </div>
+            <div>
+            <button class="btn--primary">
+                <i class="icon-upload"></i>
+                Submit
+            </button>
+        </div>
+        <div>
+            <button class="btn--primary">
+                <i class="icon-volume-up"></i>
+                Play
+            </button>
+        </div>
+        <div>
+            <button class="btn--primary">
+                <i class="icon-download"></i>
+                Download
+            </button>
+            </div>
+        </div>
+        </form>
+        </div> <!-- end services-list -->
+    </div>
+    </section> <!-- end s-works -->
+    <!-- contact
+    ================================================== -->
+    <section id="contact" class="s-contact">
+
+        <div class="row section-header" data-aos="fade-up">
+            <div class="col-full">
+                <h3 class="subhead subhead--light">Meet the team</h3>
+                <h1 class="display-1 display-1--light">We are 4 students pursuing our B.E. in Computer Science, from Sir M. Visvesvaraya Institute of Technology.</h1>
+            </div>
+        </div> <!-- end section-header -->
+        <div class="table-responsive row section-header" data-aos="fade-up">
+                    <table class="tab-white tab-pad">
+                            <thead>
+                            <tr>
+                                <th class="tab-white ">Name</th>
+                                <th class="tab-white ">USN</th>
+                                <th class="tab-white ">E-mail</th>
+                                <th class="tab-white ">Phone</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <tr>
+                                <td>Ch Ravi Raj</td>
+                                <td>1MV15CS020</td>
+                                <td>raviraj97@gmail.com</td>
+                                <td>9611241671</td>
+                            </tr>
+                            <tr>
+                                <td>David C Mathew</td>
+                                <td>1MV15CS024</td>
+                                <td>davidsemailid@gmail.com</td>
+                                <td>99664132847</td>
+                            </tr>
+                            <tr>
+                                <td>M V Nishitha</td>
+                                <td>1MV15CS055</td>
+                                <td>nv4373@gmail.com</td>
+                                <td>8861534243</td>
+                            </tr>
+                            <tr>
+                                <td>Mohammed Mahaboob <br>Khan</td>
+                                <td>1MV15CS061</td>
+                                <td>khan.m.mahaboob@gmail.com</td>
+                                <td>8553620582</td>
+                            </tr>
+                            </tbody>
+                    </table>
+                    <div>
+                <h3 class="subhead subhead--light">Project repository</h3>
+                <ul class="contact-social">
+                    <li>
+                        <a href="https://github.com/ravi-raj-97/voicesyn"><i class="fab fa-github"></i></a>
+                        Voice Syn
+                    </li>
+                </ul>
+                </div>
+            </div>
+        <div class="cl-go-top">
+            <a class="smoothscroll" title="Back to Top" href="#top"><i class="icon-arrow-up" aria-hidden="true"></i></a>
+        </div>
+    </div>
+    </section> <!-- end s-contact -->
+    <div id="preloader">
+        <div id="loader">            
+        </div>
+    </div>
+    <!-- Java Script
+    ================================================== -->
+    <script src="js/jquery-3.2.1.min.js"></script>
+    <script src="js/plugins.js"></script>
+    <script src="js/main.js"></script>
+</body>
+
+</html>
