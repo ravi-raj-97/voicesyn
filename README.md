@@ -89,3 +89,16 @@ eg
 ```
 python3 play_words_2.py test_out 'you think that i' split.txt .02 .01 output --generate_file
 ```
+
+##Sound Speed changer
+
+Usage 
+
+```
+python3 sound_speed.py input.wav(that already exists) output.wav(the new file we ant to write to)
+```
+
+eg
+```
+python sound_speed.py inputsounds.wav outputmade.wav
+```
