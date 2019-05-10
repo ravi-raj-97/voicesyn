@@ -53,14 +53,14 @@
     <header class="s-header">
 
         <div class="header-logo">
-            <a class="site-logo" href="index.html">
+            <a class="site-logo" href="#home">
                 <img src="{{ url_for('static', filename='logo.svg') }}" alt="Homepage">
             </a>
         </div> <!-- end header-logo -->
 
         <nav class="header-nav">
 
-            <a href="#0" class="header-nav__close" title="close"><span>Close</span></a>
+            <a href="#home" class="header-nav__close" title="close"><span>Close</span></a>
 
             <div class="header-nav__content">
                 <h3>Custom Voice <br/> Generator</h3>
@@ -73,13 +73,13 @@
                     <li><a class="smoothscroll"  href="#contact" title="contact">Team</a></li>
                 </ul>
     
-                <p>Custom Voice Genrator is a system that trains a system <a href='#0'>on a given voice</a> and then synthesises speech from the sounds of the given voice.</p>
+                <p>Custom Voice Genrator is a system that trains a system <a href="#home">on a given voice</a> and then synthesises speech from the sounds of the given voice.</p>
 
             </div> <!-- end header-nav__content -->
 
         </nav> <!-- end header-nav -->
 
-        <a class="header-menu-toggle" href="#0">
+        <a class="header-menu-toggle" href="#home">
             <span class="header-menu-icon"></span>
         </a>
 
@@ -211,11 +211,14 @@
                Record the speech of the User reading the content of the given file. Upload the .wav file and the name of the corresponding speaker in the audio input.
                 </p>
             </div>
-            <button class="btn btn--stroke full-width"><i class="icon-download"></i>Download transcript file</button>
+                <a type="button" class="btn btn--stroke full-width" href="alphabet.txt" target="_blank">
+                <i class="icon-notes"></i>Open transcript file
+                </a>
+                <br><br>
         </div> <!-- end about-desc -->
 
         <div class="row services-list block-1-3 block-m-1-2 block-tab-full">
-        <form id="take input">
+        <form id="takeinput" method="post" action="/upload" enctype=multipart/form-data>
             <div class="col-block service-item " data-aos="fade-up">
                 <div class="service-icon service-icon--brand-identity">
                     <i class="icon-microphone"></i>
@@ -224,12 +227,12 @@
                     <h3 class="h4">Audio File</h3>
                     <p>Please upload the audio file in the <b>.wav</b> format.</p>
                 </div>
+                <br>
                     <div class="div--left">
-                            <input class="full-width" type="text" placeholder="Audio path" id="wavpath">
-                    <button class="btn--primary" type="button" title="Upload file from device">
-                    <i class="icon-search"></i>
-                    Select File
-                    </button>
+                    <br>
+                    <label for="file-upload" class="custom-file-upload">
+                    <i class="icon-search"></i>   Select File</label>
+                    <input id="file-upload" type="file" name="file"/>
                     </div>
             </div>
             <div class="col-block service-item" data-aos="fade-up">
@@ -238,19 +241,34 @@
                 </div>
                 <div class="service-text">
                     <h3 class="h4">Speaker Name</h3>
-                    <p>Please enter the name of the <b>speaker</b> of the wav file.</p>
+                    <p>Please enter the name of the <b>speaker</b> of the wav file and the special key.</p>
+                    <br>
                 </div>
                 <div class="div--right">
-                <input class="full-width" type="text" placeholder="Speaker Name" id="speakername">
-                <button class="btn--primary" type="submit" title="Upload file from device">
+                <input class="full-width" type="text" placeholder="Speaker Name" name="speakername">
+                <br>
+                <input class="full-width" type="password" placeholder="Special Key" name="speakerpass">
+                <br>
+                <button class="btn--primary" type="submit" title="Add the sample">
                     <i class="icon-user-add"></i>
-                    Add user
+                    Add Sample
                 </button>
+                <br>
                 </div>
             </div>
         </form>
         </div> <!-- end services-list -->
-
+        <div class="div--center">
+            {% with messages = get_flashed_messages() %}
+                {% if messages %}
+                    {% for message in messages %}
+                        <div class="alert alert-warning alert-dismissible" role="alert">
+                            <h3><b>{{message}}</b></h3>
+                        </div>
+                    {% endfor %}
+                {% endif %}
+            {% endwith %}
+        </div>
     </section> <!-- end s-services -->
 
 
@@ -268,62 +286,74 @@
             <div class="col-full">
                 <p class="lead">
                     Just a few steps to follow:
-                <ol>
-               <li>Type the text</li>
-               <li>Select a voice</li>
-               <li>Submit the text</li>
-               <li>Play the synthesized voice</li>
-               <li>Download the generated output</li>
-               </ol>
+                    <br>- Type the text.<br>- Select a voice and enter special key.<br>- Submit the text.<br>- Click the play button. A new window will open with the file playing.<br>- Download the generated output by right clicking and saving the file.<br>
                 </p>
             </div>
         </div> <!-- end about-desc -->
 
         <div class="row services-list block-1-3 block-m-1-2 block-tab-full">
-        <form id="take input">
+        <form id="taketext" method="post" action="/synthesizer">
             <div class="col-block service-item " data-aos="fade-up">
                 
                 <div class="service-text">
                     <h3 class="h4">Message</h3>
                     <p>Please type the text here.</p>
                 </div>
+                <br>
                     <div class="div--left">
-                           <textarea class="full-width" placeholder="Your message" id="texttoconvert"></textarea>
+                           <textarea class="full-width" placeholder="Your message" id="texttoconvert" name="converttext"></textarea>
                     </div>
             </div>
         <div class="col-block service-item div--center div--vc" data-aos="fade-up">
             <div>
-            <label for="sampleRecipientInput">Select voice</label>
+                <br><br><br>
+            <h3><b>Select voice</b></h3>
             <div class="cl-custom-select">
-                <select class="full-width" id="voiceselect">
-                    <option value="Option 1">Questions</option>
-                    <option value="Option 2">Report</option>
-                    <option value="Option 3">Others</option>
+                <select name="speakername" class="full-width" id="voiceselect">
+                    <option value="null"> Select name</option>
+                    {% for x in names %}
+                    <option value={{x[1]}}>{{x[1]}}</option>
+                    {% endfor %}
                 </select>
             </div>
+                <input class="full-width" type="password" placeholder="Special Key" name="speakerpass">
                     </div>
+                    <br>
             <div>
-            <button class="btn--primary">
+            <button class="btn--primary" type="submit" title="Upload the text">
                 <i class="icon-upload"></i>
                 Submit
             </button>
         </div>
+        <br>
+    </form>
+        </div> <!-- end services-list -->
+    </div>
+    <br><br><br>
+    <div class="row services-list block-1-3 block-m-1-2 block-tab-full div--center" data-aos="fade-up">
+        <br>
         <div>
-            <button class="btn--primary">
-                <i class="icon-volume-up"></i>
-                Play
-            </button>
-        </div>
-        <div>
+            <a href="/download-file" target="blank">
             <button class="btn--primary">
                 <i class="icon-download"></i>
-                Download
+                <i class="icon-volume-up"></i>
+                Play and Download
             </button>
             </div>
         </div>
-        </form>
-        </div> <!-- end services-list -->
     </div>
+    <div class="div--center">
+        <br><br>
+            {% with messages = get_flashed_messages() %}
+                {% if messages %}
+                    {% for message in messages %}
+                        <div class="alert alert-warning alert-dismissible" role="alert">
+                            <h3><b>{{message}}</b></h3>
+                        </div>
+                    {% endfor %}
+                {% endif %}
+            {% endwith %}
+        </div>
     </section> <!-- end s-works -->
     <!-- contact
     ================================================== -->
@@ -375,12 +405,12 @@
                     <br>
                     <div>
                 <h3 class="subhead subhead--light">Project repository</h3>
-                <ul class="contact-social">
-                    <li>
+                <div>
+                    <h1 class="display-1--light">
                         <a href="https://github.com/ravi-raj-97/voicesyn"><i class="fab fa-github"></i></a>
                         Voice Syn
-                    </li>
-                </ul>
+                    </h1>
+                    </div>
                 </div>
             </div>
         <div class="cl-go-top">
