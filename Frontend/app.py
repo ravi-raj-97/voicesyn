@@ -27,30 +27,41 @@ with open('namelist.txt') as nf:
 		pass_list.append(temp)
 nf.close()
 
+
 def allowed_file(filename):
-    return '.' in filename and \
-           filename.rsplit('.', 1)[1].lower() in ALLOWED_EXTENSIONS
+	return '.' in filename and  filename.rsplit('.', 1)[1].lower() in ALLOWED_EXTENSIONS
+
 
 @app.route('/playSong')
 def playSong():
     return track.play()
 
+
 @app.route('/#home')
 @app.route('/')
 def home():
 	return render_template('index.html',names=name_list)
+
+
 @app.route('/#about')
 def about():
 	return render_template('index.html',names=name_list)
+
+
 @app.route('/#train',methods=['GET','POST'])
 def train():
 	return render_template('index.html',names=name_list)
+
+
 @app.route('/#generate')
 def generate():
 	return render_template('index.html',names=name_list)
+
+
 @app.route('/#contact')
 def contact():
 	return render_template('index.html',names=name_list)
+
 
 @app.route('/upload',methods=['POST'])
 def upload():

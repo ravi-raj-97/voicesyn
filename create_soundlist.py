@@ -6,10 +6,37 @@ Description: Script to create a list of sounds given a single audio file and the
 import multiprocessing
 import json
 import gentle
-from pydub import AudioSegment
+from pydub import AudioSegment, exceptions
 import os
 import argparse
 import traceback
+import ffmpy
+
+
+def ensure_length(sound: AudioSegment, length: int) -> AudioSegment:
+    """Takes a given sound and slows/speeds up its duration to length milliseconds
+    Args:
+        :param sound: The sound to be stretched or compressed
+        :param length: The final desired duration of the sound in milliseconds
+    Returns:
+        :return modified_sound:
+    """
+    original_length = len(sound)
+    factor = float(original_length/length)
+
+    if factor > 2:
+        factor = 2
+    if factor < 0.5:
+        factor = 0.5
+
+    if factor:
+        sound.export('temp0.wav', format='wav')
+        ff = ffmpy.FFmpeg(inputs={"temp0.wav": None},
+                          outputs={"changed.wav": ["-loglevel", "panic", "-hide_banner", "-nostats", "-filter:a", "atempo=" + str(factor), "-y"]})
+        ff.run()
+        modified_sound = AudioSegment.from_wav('changed.wav')
+        return modified_sound
+    return sound
 
 
 def segment_audio(audio_file, start, end, pre_padding=0.0, post_padding=0.0) -> AudioSegment:
@@ -25,11 +52,10 @@ def segment_audio(audio_file, start, end, pre_padding=0.0, post_padding=0.0) -> 
     """
 
     audio = AudioSegment.from_wav(audio_file)
-    length = start - end
+    length = end - start
 
-    padded_start = start - length * pre_padding if start - length * pre_padding > 0 else start
-    padded_end = end + length * post_padding if end + length * post_padding < len(audio) else end
-
+    padded_start = start - length * pre_padding
+    padded_end = end + length * post_padding
     segmented_audio = audio[padded_start:padded_end]
 
     return segmented_audio
@@ -74,10 +100,17 @@ def generate_diphones(audio_file, transcript_file, output_folder, pre_padding=0.
 
     for entry in phone_time_list:
         diphone = segment_audio(audio_file, entry[1], entry[2], pre_padding, post_padding)
+        print('Old ' + str(entry[0]) + ':' + str(len(diphone)))
+        if len(diphone) < 150:
+            try:
+                diphone = ensure_length(diphone, 150)
+            except exceptions.CouldntDecodeError:
+                print(entry[0], 'is very small.........................................................')
         if not os.path.exists(output_folder):
             os.mkdir(output_folder)
         output_filename = output_folder + '/' + str(entry[0]) + '.wav'
         diphone.export(output_filename, format='wav')
+        print('New ' + str(entry[0]) + ':' + str(len(diphone)))
     return diphones
 
 

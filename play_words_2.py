@@ -1,12 +1,38 @@
 """
 Date : 8-5-19
 Description: Module to play sequence of sounds or produce an audio file with those sequence of sounds
+if name is gaven a .wav is generated. otherwise audio is played
 """
 from pydub import AudioSegment
 import pyaudio
 import wave
 import argparse
 import time
+
+
+def overlap(sound_1: AudioSegment, sound_2: AudioSegment, percent: float = .25) -> AudioSegment:
+    """Overlap and add some percentage of sound 2 to the back of sound 1
+    Args
+        :param sound_1: (AudioSegment) The first sound
+        :param sound_2: (AudioSegment) The second sound which will be added and overlayed to the first sound
+        :param percent: (float) The percentage of the second sound to overlay behind the first audio
+    Returns:
+        :return overlapped_sound:  AudioSegment
+    """
+
+    sound_1_len = len(sound_1)
+    sound_2_len = len(sound_2)
+    overlap_duration = int(sound_2_len * percent)
+    overlap_duration = 0 if overlap_duration > sound_1_len else overlap_duration
+    # try:
+    #     overlapped_sound = sound_1.append(sound_2, crossfade=overlap_duration)
+    # except ValueError:
+    #     overlapped_sound = sound_1.append(sound_2, crossfade=0)
+    #     return overlapped_sound
+    overlapped_sound = sound_1 + AudioSegment.silent(sound_1_len - overlap_duration)
+    # playback.play(overlapped_sound)
+    overlapped_sound = overlapped_sound.overlay(sound_2, (sound_1_len - overlap_duration), gain_during_overlay=-130)
+    return overlapped_sound
 
 
 def play_words(source_folder, word_dicts, diphone_silence=.01, word_silence=.2) -> None:
@@ -54,18 +80,24 @@ def generate_words_clip(name, source_folder, word_dicts, diphone_silence=10, wor
     """
     final_sound = AudioSegment.silent(0)
     for word in word_dicts:
-        for diphone in list(word.values())[0]:
+        diphone_list = list(word.values())[0]
+        word_sound = AudioSegment.silent(0)
+        for index in range(0, len(diphone_list)):
+
+            diphone = diphone_list[index]
             diphone_sound_file = source_folder + '/' + diphone + '.wav'
             sound = AudioSegment.from_wav(diphone_sound_file)
-            final_sound = final_sound + sound
-            final_sound = final_sound + AudioSegment.silent(diphone_silence)
-        final_sound = final_sound + word_silence
+            if index > 0:
+                word_sound = overlap(word_sound, sound)
+            else:
+                word_sound = word_sound + sound
+
+            # final_sound = final_sound + AudioSegment.silent(diphone_silence)
+        final_sound = final_sound + word_sound + AudioSegment.silent(word_silence)
     final_sound.export(name + '.wav', format='wav')
 
 
-def output(source_folder, word_list, dict_file,
-           diphone_silence=.01, word_silence=.2,
-           generate_file=False, name=None) -> list:
+def output(source_folder, word_list, dict_file, diphone_silence=.01, word_silence=.2, name=None) -> list:
     """ Play/Create audio of the words in word_list
     Args:
         :param source_folder: (str) Location of all the users diphone data
@@ -93,7 +125,7 @@ def output(source_folder, word_list, dict_file,
         except KeyError:
             continue
     print(word_dicts)
-    if generate_file:
+    if name is not None:
         generate_words_clip(name, source_folder, word_dicts, int(diphone_silence*1000), int(word_silence*1000))
     else:
         play_words(source_folder, word_dicts, diphone_silence, word_silence)
@@ -108,9 +140,7 @@ if __name__ == '__main__':
     parser.add_argument('dict_file', help='The dictionary file to be used')
     parser.add_argument('diphone_silence', type=float, help='The silence between every diphone being played')
     parser.add_argument('word_silence', type=float, help='The silence between every word being played')
-    parser.add_argument('name', nargs='?', help='The name of the audio file to generate', default=None)
-    parser.add_argument('--generate_file', help='Generate an output file. To be used whenever name is given',
-                        action='store_true', default=False)
+    parser.add_argument('name', nargs='?', help='The name of the audio file to generate (optional)', default=None)
     args = parser.parse_args()
 
     source_folder = args.source_folder
@@ -119,11 +149,5 @@ if __name__ == '__main__':
     diphone_silence = args.diphone_silence
     word_silence = args.word_silence
     name = args.name
-    if not args.generate_file and name is not None:
-        print('Please use --generate_file flag')
-        exit(1)
-    if args.generate_file and name is None:
-        print('Please enter a file name')
-        exit(1)
 
-    output(source_folder, word_list, dict_file, diphone_silence, word_silence, args.generate_file, name)
+    output(source_folder, word_list, dict_file, diphone_silence, word_silence, name)
