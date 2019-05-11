@@ -2119,6 +2119,7 @@ ardine ardine aa_B r_I d_I iy_I n_I iy_E
 ardmore ardmore aa_B r_I d_I m_I ao_I r_E
 arduous arduous aa_B r_I jh_I uw_I ah_I s_E
 are are aa_B r_E
+are are er_S
 area area eh_B r_I iy_I ah_E
 area's area's eh_B r_I iy_I ah_I z_E
 areas areas eh_B r_I iy_I ah_I z_E
