@@ -245,9 +245,9 @@
                     <br>
                 </div>
                 <div class="div--right">
-                <input class="full-width" type="text" placeholder="Speaker Name" name="speakername">
+                <input class="full-width" type="text" placeholder="Speaker Name" name="speakername">{{ speakername }}
                 <br>
-                <input class="full-width" type="password" placeholder="Special Key" name="speakerpass">
+                <input class="full-width" type="password" placeholder="Special Key" name="speakerpass"> {{ speakerpass }}
                 <br>
                 <button class="btn--primary" type="submit" title="Add the sample">
                     <i class="icon-user-add"></i>
@@ -326,9 +326,10 @@
             </button>
         </div>
         <br>
+        </div>
     </form>
         </div> <!-- end services-list -->
-    </div>
+
     <br><br><br>
     <div class="row services-list block-1-3 block-m-1-2 block-tab-full div--center" data-aos="fade-up">
         <br>
@@ -339,9 +340,10 @@
                 <i class="icon-volume-up"></i>
                 Play and Download
             </button>
+            </a>
             </div>
         </div>
-    </div>
+
     <div class="div--center">
         <br><br>
             {% with messages = get_flashed_messages() %}
@@ -416,7 +418,6 @@
         <div class="cl-go-top">
             <a class="smoothscroll" title="Back to Top" href="#top"><i class="icon-arrow-up" aria-hidden="true"></i></a>
         </div>
-    </div>
     </section> <!-- end s-contact -->
     <div id="preloader">
         <div id="loader">            

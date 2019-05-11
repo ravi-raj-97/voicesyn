@@ -3,14 +3,14 @@ Date : 8-5-19
 Description: Module to play sequence of sounds or produce an audio file with those sequence of sounds
 if name is gaven a .wav is generated. otherwise audio is played
 """
-from pydub import AudioSegment
+from pydub import AudioSegment, playback
 import pyaudio
 import wave
 import argparse
 import time
 
 
-def overlap(sound_1: AudioSegment, sound_2: AudioSegment, percent: float = .25) -> AudioSegment:
+def overlap(sound_1: AudioSegment, sound_2: AudioSegment, percent: float = .1) -> AudioSegment:
     """Overlap and add some percentage of sound 2 to the back of sound 1
     Args
         :param sound_1: (AudioSegment) The first sound
@@ -24,14 +24,15 @@ def overlap(sound_1: AudioSegment, sound_2: AudioSegment, percent: float = .25) 
     sound_2_len = len(sound_2)
     overlap_duration = int(sound_2_len * percent)
     overlap_duration = 0 if overlap_duration > sound_1_len else overlap_duration
-    # try:
-    #     overlapped_sound = sound_1.append(sound_2, crossfade=overlap_duration)
-    # except ValueError:
-    #     overlapped_sound = sound_1.append(sound_2, crossfade=0)
-    #     return overlapped_sound
-    overlapped_sound = sound_1 + AudioSegment.silent(sound_1_len - overlap_duration)
+    print(sound_1_len, sound_2_len, overlap_duration)
+    try:
+        overlapped_sound = sound_1.append(sound_2, crossfade=overlap_duration)
+    except ValueError:
+        overlapped_sound = sound_1.append(sound_2, crossfade=0)
+        return overlapped_sound
+    # overlapped_sound = sound_1 + AudioSegment.silent(sound_1_len - overlap_duration)
     # playback.play(overlapped_sound)
-    overlapped_sound = overlapped_sound.overlay(sound_2, (sound_1_len - overlap_duration), gain_during_overlay=-130)
+    # overlapped_sound = overlapped_sound.overlay(sound_2, (sound_1_len - overlap_duration), gain_during_overlay=-1)
     return overlapped_sound
 
 
@@ -87,11 +88,13 @@ def generate_words_clip(name, source_folder, word_dicts, diphone_silence=10, wor
             diphone = diphone_list[index]
             diphone_sound_file = source_folder + '/' + diphone + '.wav'
             sound = AudioSegment.from_wav(diphone_sound_file)
+
             if index > 0:
                 word_sound = overlap(word_sound, sound)
+                print('overlap')
             else:
                 word_sound = word_sound + sound
-
+        playback.play(word_sound)
             # final_sound = final_sound + AudioSegment.silent(diphone_silence)
         final_sound = final_sound + word_sound + AudioSegment.silent(word_silence)
     final_sound.export(name + '.wav', format='wav')

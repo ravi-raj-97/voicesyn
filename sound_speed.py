@@ -2,6 +2,7 @@ import wave as w
 import argparse
 import traceback
 
+
 def generator(ipfn,opfn,spf):
 	iw=w.open(ipfn,'rb')
 	ow=w.open(opfn,'wb')
@@ -15,6 +16,7 @@ def generator(ipfn,opfn,spf):
 	ow.setframerate(ofr)
 	ow.writeframesraw(iw.readframes(inf))
 	iw.close()
+
 
 if __name__ == '__main__':
 	parser = argparse.ArgumentParser(description='This is a test')
