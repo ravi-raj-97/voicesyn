@@ -17,8 +17,6 @@ pass_list=[]
 cons_list=[]
 speaker_num=0
 
-track="/home/chraviraj/Desktop/Frontend/infinity_war.mp3"
-
 with open('namelist.txt') as nf:
 	for line in nf:
 		row=line.strip().split(',')
@@ -33,10 +31,6 @@ nf.close()
 def allowed_file(filename):
     return '.' in filename and \
            filename.rsplit('.', 1)[1].lower() in ALLOWED_EXTENSIONS
-
-@app.route('/playSong')
-def playSong():
-    return track.play()
 
 @app.route('/#home')
 @app.route('/')
@@ -122,7 +116,7 @@ def syn():
 		folderpath='uploaded_recordings/'+speakername+'/diphones'
 		res=re.findall(r'\w+',textcontent)
 		print(res)
-		pw2.output(folderpath,res,'split.txt',0.01,0.02,'generated.wav')
+		pw2.output(folderpath,res,'split.txt',0.01,0.02,'generated')
 		#source_folder, word_list, dict_file, diphone_silence=.01, word_silence=.2, name=None
 		flash('The uploaded text is synthesized in the voice of '+speakername+'.')
 		flash('Click Play or Download now.')
@@ -130,7 +124,7 @@ def syn():
 
 @app.route('/generatedfile')
 def down():
-	return send_file('/home/chraviraj/voicesyn/generated.wav',attachment_filename="generated")
+	return send_file('/home/chraviraj/voicesyn/generated.wav',attachment_filename="generated.wav")
 
 @app.route('/transcript.txt')
 def openfile():
