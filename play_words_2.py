@@ -24,7 +24,6 @@ def overlap(sound_1: AudioSegment, sound_2: AudioSegment, percent: float = .1) -
     sound_2_len = len(sound_2)
     overlap_duration = int(sound_2_len * percent)
     overlap_duration = 0 if overlap_duration > sound_1_len else overlap_duration
-    print(sound_1_len, sound_2_len, overlap_duration)
     try:
         overlapped_sound = sound_1.append(sound_2, crossfade=overlap_duration)
     except ValueError:
@@ -91,10 +90,9 @@ def generate_words_clip(name, source_folder, word_dicts, diphone_silence=10, wor
 
             if index > 0:
                 word_sound = overlap(word_sound, sound)
-                print('overlap')
             else:
                 word_sound = word_sound + sound
-        playback.play(word_sound)
+        # playback.play(word_sound)
             # final_sound = final_sound + AudioSegment.silent(diphone_silence)
         final_sound = final_sound + word_sound + AudioSegment.silent(word_silence)
     final_sound.export(name + '.wav', format='wav')
@@ -132,6 +130,7 @@ def output(source_folder, word_list, dict_file, diphone_silence=.01, word_silenc
         generate_words_clip(name, source_folder, word_dicts, int(diphone_silence*1000), int(word_silence*1000))
     else:
         play_words(source_folder, word_dicts, diphone_silence, word_silence)
+    print(word_dicts)
     return word_dicts
 
 
