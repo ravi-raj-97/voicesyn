@@ -208,7 +208,8 @@
         <div class="row" data-aos="fade-up">
             <div class="col-full">
                 <p class="lead">
-               Record the speech of the User reading the content of the given file, according to the instructions mentioned.<br> Upload the .wav files and the name of the corresponding speaker in the audio inputs.
+                    Record the speech of the User reading the content of the given file, according to the instructions mentioned.<br>
+                    Upload the .wav files and mention the
                 </p>
             </div>
                 <a type="button" class="btn btn--stroke full-width" href="transcript.txt" target="_blank">
@@ -288,8 +289,10 @@
         <div class="row" data-aos="fade-up">
             <div class="col-full">
                 <p class="lead">
-                    Just a few steps to follow:
-                    <br>- Type the text.<br>- Select a voice and enter special key.<br>- Submit the text.<br>- Click the <b>Play or Download</b> button. A new dialog will open.<br>- If you want to play the file while it downloads, select <b>OPEN WITH</b>.<br>- Else if you only want to download, select <b>SAVE FILE</b> and the document will be downloaded.
+                    Just a few more steps to go:<br>
+                    - Type the text.<br>
+                    - Select a voice and enter special key.<br>
+                    - Click submit and Download.
                 </p>
             </div>
         </div> <!-- end about-desc -->
@@ -315,7 +318,7 @@
                 <select name="speakername" class="full-width" id="voiceselect">
                     <option value="null"> Select name</option>
                     {% for x in names %}
-                    <option value={{x[1]}}>{{x[1]}}</option>
+                    <option value={{x}}>{{x}}</option>
                     {% endfor %}
                 </select>
             </div>
@@ -325,26 +328,14 @@
             <div>
             <button class="btn--primary" onclick="alert('Please wait it might take a while. The page will reload')" type="submit" title="Upload the text">
                 <i class="icon-upload"></i>
-                Submit
+                Submit and Download
             </button>
         </div>
         <br>
+        </div>
     </form>
         </div> <!-- end services-list -->
-    </div>
     <br><br><br>
-    <div class="row services-list block-1-3 block-m-1-2 block-tab-full div--center" data-aos="fade-up">
-        <br>
-        <div>
-            <a href="/generatedfile" target="blank">
-            <button class="btn--primary">
-                <i class="icon-download"></i>
-                <i class="icon-volume-up"></i>
-                Play or Download
-            </button>
-            </div>
-        </div>
-    </div>
     <div class="div--center">
         <br><br>
             {% with messages = get_flashed_messages() %}
@@ -419,7 +410,6 @@
         <div class="cl-go-top">
             <a class="smoothscroll" title="Back to Top" href="#top"><i class="icon-arrow-up" aria-hidden="true"></i></a>
         </div>
-    </div>
     </section> <!-- end s-contact -->
     <div id="preloader">
         <div id="loader">            

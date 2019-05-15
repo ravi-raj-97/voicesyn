@@ -1,5 +1,4 @@
-from flask import Flask, render_template, redirect, request, url_for, flash, send_from_directory, send_file, \
-    make_response
+from flask import Flask, render_template, redirect, request, flash, send_from_directory, make_response
 from werkzeug.utils import secure_filename
 import os
 import create_soundlist as cs
@@ -7,27 +6,22 @@ import play_words_2 as pw2
 import re
 
 UPLOAD_FOLDER = 'uploaded_recordings'
-ALLOWED_EXTENSIONS = set(['wav'])
+ALLOWED_EXTENSIONS = {'wav'}
 
 app = Flask(__name__, static_url_path='/static')
 app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
 app.secret_key = 'hello'
 app.config['SEND_FILE_MAX_AGE_DEFAULT'] = 0
 name_list = []
-pass_list = []
-cons_list = []
-speaker_num = 0
+users = dict()
 
 with open('namelist.txt') as nf:
     for line in nf:
         row = line.strip().split(',')
-        speaker_num += 1
-        cons_list.append(row)
-        temp = [speaker_num, row[1]]
-        name_list.append(temp)
-        temp = [speaker_num, row[2]]
-        pass_list.append(temp)
-nf.close()
+        name = row[0]
+        passwd = row[1]
+        users[name] = passwd
+        name_list.append(name)
 
 
 def allowed_file(filename):
@@ -73,31 +67,24 @@ def upload():
         for file in x:
             if file.filename == '':
                 flash('No selected file')
-                return redirect(request.url)
+                return redirect('/#train')
             if file and allowed_file(file.filename):
                 filename = secure_filename(file.filename)
             print(filename, speakername, speakerpass)
             totalpath = UPLOAD_FOLDER + '/' + speakername
-            flag = 0
-            count = 0
-            for row in name_list:
-                count += 1
-                if speakername == row[1]:
-                    flag = 1
-                    serialnum = row[0]
-                    if pass_list[serialnum - 1][1] != speakerpass:
-                        flash('Special Key Error')
-                        return redirect('/#train')
-            if flag == 0:
-                count += 1
-                name_list.append([count, speakername])
-                pass_list.append([count, speakerpass])
-                os.mkdir(totalpath)
-                os.mkdir(totalpath + '/diphones')
-                with open('namelist.txt', 'a') as nf:
-                    newline = str(count) + "," + speakername + "," + speakerpass + "\n"
-                    nf.write(newline)
-                nf.close()
+
+            if users.get(speakername, None):
+                if users[speakername] != speakerpass:
+                    flash('Special Key Error')
+                    return redirect('/#train')
+                else:
+                    name_list.append(speakername)
+                    os.mkdir(totalpath)
+                    os.mkdir(totalpath + '/diphones')
+                    with open('namelist.txt', 'a') as nf:
+                        newline = speakername + "," + speakerpass + "\n"
+                        nf.write(newline)
+
             file.save(os.path.join(totalpath, filename))
             filepath = 'uploaded_recordings/' + speakername + '/' + filename
             uploadedfiles.append(filepath)
@@ -118,27 +105,28 @@ def syn():
         speakername = request.form['speakername']
         textcontent = request.form['converttext']
         speakerpass = request.form['speakerpass']
-        count = 0
-        for row in name_list:
-            count += 1
-            if speakername == row[1]:
-                serialnum = row[0]
-                if pass_list[serialnum - 1][1] != speakerpass:
-                    flash('Special Key invalid. Please re-enter.')
-                    return redirect('/#generate')
-        folderpath = 'uploaded_recordings/' + speakername + '/diphones'
+        if textcontent == '':
+            flash('No text')
+            return redirect('/#generate')
+        if users.get(speakername, None) is None or users[speakername] != speakerpass:
+            flash('Key error')
+            return redirect('/#generate')
+
+        diphone_path = UPLOAD_FOLDER + '/' + speakername + '/diphones'
+        output_path = UPLOAD_FOLDER + '/' + speakername + '/generated'
         res = re.findall(r'\w+', textcontent)
         print('words are ', res)
-        pw2.output(folderpath, res, 'split.txt', 0.01, 0.2, 'generated')
+        pw2.output(diphone_path, res, 'split.txt', 0.01, 0.2, output_path)
         # source_folder, word_list, dict_file, diphone_silence=.01, word_silence=.2, name=None
-        flash('The uploaded text is synthesized in the voice of ' + speakername + '.')
-        flash('Click Play or Download now.')
-    return redirect('/#generate')
+        # flash('The uploaded text is synthesized in the voice of ' + speakername + '.')
+        # flash('Click Play or Download now.')
+        return redirect('/generatedfile/'+speakername, 303)
 
 
-@app.route('/generatedfile')
-def down():
-    r = make_response(send_from_directory(directory='.', filename='generated.wav',
+@app.route('/generatedfile/<speakername>')
+def down(speakername):
+    directory = UPLOAD_FOLDER + '/' + speakername
+    r = make_response(send_from_directory(directory=directory, filename='generated.wav',
                                           attachment_filename='aud.wav', as_attachment=True, cache_timeout=0))
     r.headers["x-filename"] = 'generated.wav'
     r.headers["Access-Control-Expose-Headers"] = 'x-filename'
