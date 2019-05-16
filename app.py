@@ -73,17 +73,19 @@ def upload():
             print(filename, speakername, speakerpass)
             totalpath = UPLOAD_FOLDER + '/' + speakername
 
-            if users.get(speakername, None) is None:
+            if users.get(speakername, None):
                 if users[speakername] != speakerpass:
                     flash('Special Key Error')
                     return redirect('/#train')
                 else:
-                    name_list.append(speakername)
-                    os.mkdir(totalpath)
-                    os.mkdir(totalpath + '/diphones')
-                    with open('namelist.txt', 'a') as nf:
-                        newline = speakername + "," + speakerpass + "\n"
-                        nf.write(newline)
+                    print('\n\n\n\n\n\nadding extra files')
+            else:
+                name_list.append(speakername)
+                os.mkdir(totalpath)
+                os.mkdir(totalpath + '/diphones')
+                with open('namelist.txt', 'a') as nf:
+                    newline = speakername + "," + speakerpass + "\n"
+                    nf.write(newline)
 
             file.save(os.path.join(totalpath, filename))
             filepath = 'uploaded_recordings/' + speakername + '/' + filename

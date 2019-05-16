@@ -249,9 +249,9 @@
                     <br>
                 </div>
                 <div class="div--right">
-                <input class="full-width" type="text" placeholder="Speaker Name" name="speakername">
+                <input class="full-width" type="text" placeholder="Speaker Name" name="speakername" required>
                 <br>
-                <input class="full-width" type="password" placeholder="Special Key" name="speakerpass">
+                <input class="full-width" type="password" placeholder="Special Key" name="speakerpass" required>
                 <br>
                 <button class="btn--primary" onclick="alert('Please wait it might take a while. The page will reload')" type="submit" title="Add the sample">
                     <i class="icon-user-add"></i>
@@ -307,7 +307,7 @@
                 </div>
                 <br>
                     <div class="div--left">
-                           <textarea class="full-width" placeholder="Your message" id="texttoconvert" name="converttext"></textarea>
+                           <textarea class="full-width" placeholder="Your message" id="texttoconvert" name="converttext" required></textarea>
                     </div>
             </div>
         <div class="col-block service-item div--center div--vc" data-aos="fade-up">
@@ -322,7 +322,7 @@
                     {% endfor %}
                 </select>
             </div>
-                <input class="full-width" type="password" placeholder="Special Key" name="speakerpass">
+                <input class="full-width" type="password" placeholder="Special Key" name="speakerpass" required>
                     </div>
                     <br>
             <div>
