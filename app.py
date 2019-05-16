@@ -73,7 +73,7 @@ def upload():
             print(filename, speakername, speakerpass)
             totalpath = UPLOAD_FOLDER + '/' + speakername
 
-            if users.get(speakername, None):
+            if users.get(speakername, None) is None:
                 if users[speakername] != speakerpass:
                     flash('Special Key Error')
                     return redirect('/#train')
