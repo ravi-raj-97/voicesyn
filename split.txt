@@ -14,7 +14,6 @@
 [laughter] [laughter] laughter_S
 [noise] [noise] noise_S
 a a ah_S
-a a ey_S
 a's a's ey_B z_E
 a. a. ey_S
 a.'s a.'s ey_B z_E
