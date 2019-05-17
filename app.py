@@ -25,8 +25,8 @@ with open('namelist.txt') as nf:
 
 
 def allowed_file(filename):
-    return '.' in filename and \
-           filename.rsplit('.', 1)[1].lower() in ALLOWED_EXTENSIONS
+    return '.' in filename and filename.rsplit('.', 1)[1].lower() in ALLOWED_EXTENSIONS
+    # return re.match("wl\d\d?.wav")
 
 
 @app.route('/#home')
@@ -118,7 +118,10 @@ def syn():
         output_path = UPLOAD_FOLDER + '/' + speakername + '/generated'
         res = re.findall(r'\w+', textcontent)
         print('words are ', res)
-        pw2.output(diphone_path, res, 'split.txt', 0.01, 0.2, output_path)
+        op = pw2.output(diphone_path, res, 'split.txt', 0.2, output_path)
+        if len(op) < 1:
+            flash('Word not found')
+            return redirect('/#generate')
         # source_folder, word_list, dict_file, diphone_silence=.01, word_silence=.2, name=None
         # flash('The uploaded text is synthesized in the voice of ' + speakername + '.')
         # flash('Click Play or Download now.')

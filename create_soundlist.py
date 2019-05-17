@@ -100,7 +100,7 @@ def generate_diphones(audio_file, transcript_file, output_folder, pre_padding=0.
 
     for entry in phone_time_list:
         diphone = segment_audio(audio_file, entry[1], entry[2], pre_padding, post_padding)
-        print('Old ' + str(entry[0]) + ':' + str(len(diphone)))
+        # print('Old ' + str(entry[0]) + ':' + str(len(diphone)))
         if len(diphone) < 150:
             try:
                 diphone = ensure_length(diphone, 150)

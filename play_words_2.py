@@ -67,7 +67,7 @@ def play_words(source_folder, word_dicts, diphone_silence=.01, word_silence=.2) 
         time.sleep(word_silence)
 
 
-def generate_words_clip(name, source_folder, word_dicts, diphone_silence=10, word_silence=200) -> None:
+def generate_words_clip(name, source_folder, word_dicts, word_silence=200) -> None:
     """ Generate a wav file of a given sequence of diphones located in source_folder
     Args:
         :param name: (str) Name of the audio file to be generated
@@ -98,15 +98,13 @@ def generate_words_clip(name, source_folder, word_dicts, diphone_silence=10, wor
     final_sound.export(name + '.wav', format='wav')
 
 
-def output(source_folder, word_list, dict_file, diphone_silence=.01, word_silence=.2, name=None) -> list:
+def output(source_folder, word_list, dict_file, word_silence=.2, name=None) -> list:
     """ Play/Create audio of the words in word_list
     Args:
         :param source_folder: (str) Location of all the users diphone data
         :param word_list: (list) List of words to speak
         :param dict_file: (str) Name of the dictionary file
-        :param diphone_silence: (float) Time for silence between each diphone sound in seconds
         :param word_silence: (float) Time for silence between each word in seconds
-        :param generate_file: (Boolean) Whether or not the output file has to be mand
         :param name: (str) Name of the output file to be generated
     Returns:
         :return: word_dicts(dict)
@@ -124,10 +122,10 @@ def output(source_folder, word_list, dict_file, diphone_silence=.01, word_silenc
         try:
             word_dicts.append({word: diphone_dict[word]})
         except KeyError:
-            continue
+            return {}
     print(word_dicts)
     if name is not None:
-        generate_words_clip(name, source_folder, word_dicts, int(diphone_silence*1000), int(word_silence*1000))
+        generate_words_clip(name, source_folder, word_dicts, int(word_silence*1000))
     else:
         play_words(source_folder, word_dicts, diphone_silence, word_silence)
     print(word_dicts)
