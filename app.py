@@ -78,14 +78,18 @@ def upload():
                     flash('Special Key Error')
                     return redirect('/#train')
                 else:
+                    if not os.path.exists(totalpath):
+                        os.mkdir(totalpath)
+                        os.mkdir(totalpath + '/diphones')
                     print('\n\n\n\n\n\nadding extra files')
             else:
                 name_list.append(speakername)
-                os.mkdir(totalpath)
-                os.mkdir(totalpath + '/diphones')
-                with open('namelist.txt', 'a') as nf:
-                    newline = speakername + "," + speakerpass + "\n"
-                    nf.write(newline)
+                if not os.path.exists(totalpath):
+                    os.mkdir(totalpath)
+                    os.mkdir(totalpath + '/diphones')
+                    with open('namelist.txt', 'a') as nf:
+                        newline = speakername + "," + speakerpass + "\n"
+                        nf.write(newline)
 
             file.save(os.path.join(totalpath, filename))
             filepath = 'uploaded_recordings/' + speakername + '/' + filename
@@ -96,7 +100,7 @@ def upload():
             print(fne)
             textpath = 'uploaded_recordings/' + fne + '.txt'
             folderpath = 'uploaded_recordings/' + speakername + '/diphones'
-            cs.generate_diphones(filepath, textpath, folderpath)
+            cs.generate_diphones(filepath, textpath, folderpath, 0.01, 0.05)
         # audio_file, transcript_file, output_folder, pre_padding=0.0, post_padding=0.0)
         return redirect('/#train')
 
@@ -152,4 +156,4 @@ def openfile():
 
 if __name__ == '__main__':
     app.debug = True
-    app.run(host='127.0.0.1', port=5000)
+    app.run(host='0.0.0.0', port=5000)

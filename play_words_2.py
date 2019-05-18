@@ -23,19 +23,20 @@ def overlap(sound_1: AudioSegment, sound_2: AudioSegment, percent: float = .1) -
     sound_1_len = len(sound_1)
     sound_2_len = len(sound_2)
     overlap_duration = int(sound_2_len * percent)
-    overlap_duration = 0 if overlap_duration > sound_1_len else overlap_duration
-    try:
-        overlapped_sound = sound_1.append(sound_2, crossfade=overlap_duration)
-    except ValueError:
-        overlapped_sound = sound_1.append(sound_2, crossfade=0)
-        return overlapped_sound
-    # overlapped_sound = sound_1 + AudioSegment.silent(sound_1_len - overlap_duration)
+    print(sound_1_len, sound_2_len, overlap_duration)
+    # overlap_duration = 0 if overlap_duration > sound_1_len else overlap_duration
+    # try:
+    #     overlapped_sound = sound_1.append(sound_2, crossfade=30)
+    # except ValueError:
+    #     overlapped_sound = sound_1.append(sound_2, crossfade=0)
+    #     return overlapped_sound
+    overlapped_sound = sound_1 + AudioSegment.silent(sound_2_len - overlap_duration)
     # playback.play(overlapped_sound)
-    # overlapped_sound = overlapped_sound.overlay(sound_2, (sound_1_len - overlap_duration), gain_during_overlay=-1)
+    overlapped_sound = overlapped_sound.overlay(sound_2, (sound_1_len - overlap_duration), gain_during_overlay=-5)
     return overlapped_sound
 
 
-def play_words(source_folder, word_dicts, diphone_silence=.01, word_silence=.2) -> None:
+def play_words(source_folder, word_dicts, word_silence=.2) -> None:
     """ Play a list of words from a given folder
     Args:
         :param source_folder:(str) Name of folder with the sounds
@@ -63,7 +64,6 @@ def play_words(source_folder, word_dicts, diphone_silence=.01, word_silence=.2) 
                 data = wf.readframes(chunk)
             stream.stop_stream()
             stream.close()
-            time.sleep(diphone_silence)
         time.sleep(word_silence)
 
 
@@ -73,7 +73,6 @@ def generate_words_clip(name, source_folder, word_dicts, word_silence=200) -> No
         :param name: (str) Name of the audio file to be generated
         :param source_folder: (str) Location of all the users diphone data
         :param word_dicts: (list) List of dictionaries of form {'word': [array of diphones]}
-        :param diphone_silence: (int) Time for silence between each diphone sound in milliseconds
         :param word_silence: (int) Time for silence between each word in milliseconds
     Returns:
         :return: None
@@ -92,7 +91,7 @@ def generate_words_clip(name, source_folder, word_dicts, word_silence=200) -> No
                 word_sound = overlap(word_sound, sound)
             else:
                 word_sound = word_sound + sound
-        # playback.play(word_sound)
+        playback.play(word_sound)
             # final_sound = final_sound + AudioSegment.silent(diphone_silence)
         final_sound = final_sound + word_sound + AudioSegment.silent(word_silence)
     final_sound.export(name + '.wav', format='wav')
@@ -127,7 +126,7 @@ def output(source_folder, word_list, dict_file, word_silence=.2, name=None) -> l
     if name is not None:
         generate_words_clip(name, source_folder, word_dicts, int(word_silence*1000))
     else:
-        play_words(source_folder, word_dicts, diphone_silence, word_silence)
+        play_words(source_folder, word_dicts, word_silence)
     print(word_dicts)
     return word_dicts
 
@@ -138,7 +137,6 @@ if __name__ == '__main__':
     parser.add_argument('source_folder', help='Location of the diphone audio wavs')
     parser.add_argument('word_list', help='String to be played (text only no punctuation)')
     parser.add_argument('dict_file', help='The dictionary file to be used')
-    parser.add_argument('diphone_silence', type=float, help='The silence between every diphone being played')
     parser.add_argument('word_silence', type=float, help='The silence between every word being played')
     parser.add_argument('name', nargs='?', help='The name of the audio file to generate (optional)', default=None)
     args = parser.parse_args()
@@ -146,8 +144,7 @@ if __name__ == '__main__':
     source_folder = args.source_folder
     word_list = args.word_list.split(' ')
     dict_file = args.dict_file
-    diphone_silence = args.diphone_silence
     word_silence = args.word_silence
     name = args.name
 
-    output(source_folder, word_list, dict_file, diphone_silence, word_silence, name)
+    output(source_folder, word_list, dict_file, word_silence, name)
