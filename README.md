@@ -53,7 +53,7 @@ Made the repo. Please clone. Will be adding you guys as contributors soon.
 3) Then create a file called gentle.pth in  'venv/lib/python3.6/site-packages/'
    and type the full path to your gentle installation there. (venv is the virtual environment)
 
-## Basic usage
+## Basic usage of scripts
 Some things to be kept in mind
 * Single folder per user
 * The folder should contain the .txt and .wav files
@@ -61,16 +61,8 @@ Some things to be kept in mind
 * In gen_diphone set the filename of the wav and txt file and the output directory. TODO: Make this commandline param
 * In play_words set the diphones_folder to the output_directory of gen_diphone. TODO: Make this command line param
 
-Usage
-```
-python gen_diphones.py 
-```
 
-```
-python play_words.py
-```
 
-## Added 2 new files
 Usage of create_soundlist.py
 
 ```
@@ -83,24 +75,15 @@ python create_soundlist.py dave/dave1.wav dave/dave1.txt test_out .0001 .0001
 
 Usage of play_words_2
 ```
-python3 play_words_2.py diphone_list_folder 'text to transcribe' dictionary diphone_gap word_gap output_file_name [--generate_file]
+python3 play_words_2.py diphone_list_folder 'text to transcribe' dictionary word_gap output_file_name
 ```
 eg
 ```
-python3 play_words_2.py test_out 'you think that i' split.txt .02 .01 output --generate_file
-```
-
-## Sound Speed changer
-
-Usage 
+python play_words_2.py uploaded_recordings/dave_last/diphones 'in meeting cant talk' split.txt 0.1 meeting
 
 ```
-python3 sound_speed.py input.wav(that already exists) output.wav(the new file we ant to write to) speedfactor(float variable to alter the speed)
-```
 
-eg
-```
-python3 sound_speed.py inputsounds.wav outputmade.wav 0.6
-
-This makes the outputmade.wav to be at 60% speed of the inputsounds.wav
+## Using the app
+```bash
+python3 app.py
 ```

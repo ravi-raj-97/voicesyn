@@ -2859,10 +2859,10 @@ axiom axiom ae_B k_I s_I iy_I ah_I m_E
 axis axis ae_B k_I s_I ah_I s_E
 axle axle ae_B k_I s_I ah_I l_E
 axles axles ae_B k_I s_I ah_I l_I z_E
-ay ay ay_S
+ay ay ay_I
 ay ay ey_S
 ayatollah ayatollah ay_B ah_I t_I ow_I l_I ah_E
-aye aye ay_S
+aye aye ay_I
 ayn ayn ey_B n_E
 azalea azalea ah_B z_I ey_I l_I y_I ah_E
 azaleas azaleas ah_B z_I ey_I l_I y_I ah_I z_E
@@ -6088,7 +6088,7 @@ canonized canonized k_B ae_I n_I ah_I n_I ay_I z_I d_E
 canons canons k_B ae_I n_I ah_I n_I z_E
 canopy canopy k_B ae_I n_I ah_I p_I iy_E
 cans cans k_B ae_I n_I z_E
-cant cant k_B ae_I n_I t_E
+cant cant k_E aa_I n_I t_B
 cantaloupe cantaloupe k_B ae_I n_I t_I ah_I l_I ow_I p_E
 cantaloupes cantaloupes k_B ae_I n_I t_I ah_I l_I ow_I p_I s_E
 canteen canteen k_B ae_I n_I t_I iy_I n_E
@@ -12353,7 +12353,7 @@ doherty doherty d_B aa_I hh_I er_I t_I iy_E
 doherty doherty d_B ao_I r_I t_I iy_E
 doherty doherty d_B ow_I er_I t_I iy_E
 doin' doin' d_B uw_I ih_I n_E
-doing doing d_B uw_I ih_I ng_E
+doing doing d_B uw_S ih_B ng_I
 doings doings d_B uw_I ih_I ng_I z_E
 dokey dokey d_B ow_I k_I iy_E
 dolby dolby d_B ow_I l_I b_I iy_E
@@ -15044,7 +15044,7 @@ extrovert extrovert eh_B k_I s_I t_I r_I ah_I v_I er_I t_E
 extroverted extroverted eh_B k_I s_I t_I r_I ah_I v_I er_I t_I ih_I d_E
 exuding exuding ih_B g_I z_I uw_I d_I ih_I ng_E
 exxon exxon eh_B k_I s_I aa_I n_E
-eye eye ay_S
+eye eye ay_I
 eye's eye's ay_B z_E
 eyeball eyeball ay_B b_I ao_I l_E
 eyeballs eyeballs ay_B b_I ao_I l_I z_E
@@ -20418,14 +20418,14 @@ hyun hyun hh_B ay_I ah_I n_E
 hyun hyun hh_B y_I ah_I n_E
 hyundai hyundai hh_B ah_I n_I d_I ey_E
 hyundai hyundai hh_B y_I ah_I n_I d_I ey_E
-i i ay_S
+i i ay_I
 i'd i'd ay_B d_E
 i'll i'll ay_B l_E
 i'm i'm ah_B m_E
 i'm i'm ay_B m_E
 i's i's ay_B z_E
 i've i've ay_B v_E
-i. i. ay_S
+i. i. ay_I
 i.'s i.'s ay_B z_E
 i._a._m._s. i._a._m._s. ay_B ey_I eh_I m_I eh_I s_E
 i._b._m. i._b._m. ay_B b_I iy_I eh_I m_E
@@ -23908,7 +23908,7 @@ leath leath l_B iy_I th_E
 leather leather l_B eh_I dh_I er_E
 leatherman leatherman l_B eh_I dh_I er_I m_I ah_I n_E
 leathers leathers l_B eh_I dh_I er_I z_E
-leave leave l_B iy_I v_E
+leave leave l_B iy_B v_E
 leaven leaven l_B eh_I v_I ah_I n_E
 leavenworth leavenworth l_B eh_I v_I ah_I n_I w_I er_I th_E
 leaves leaves l_B iy_I v_I z_E
@@ -24957,7 +24957,7 @@ lyricist lyricist l_B ih_I r_I ih_I s_I ih_I s_I t_E
 lyrics lyrics l_B ih_I r_I ih_I k_I s_E
 lysine lysine l_B ay_I s_I iy_I n_E
 lysol lysol l_B ay_I s_I ao_I l_E
-m m eh_B m_E
+m m eh_I m_E
 m's m's eh_B m_I z_E
 m. m. eh_B m_E
 m.'s m.'s eh_B m_I z_E
@@ -26128,8 +26128,8 @@ medivac medivac m_B eh_I d_I ih_I v_I ae_I k_E
 medley medley m_B eh_I d_I l_I iy_E
 meek meek m_B iy_I k_E
 meet meet m_B iy_I t_E
-meeting meeting m_B iy_I t_I ih_I ng_E
-meetings meetings m_B iy_I t_I ih_I ng_I z_E
+meeting meeting m_B iy_E t_B ih_I ng_I
+meetings meetings m_B iy_E t_B ih_I ng_I z_E
 meets meets m_B iy_I t_I s_E
 meg meg m_B eh_I g_E
 mega mega m_B eh_I g_I ah_E
@@ -45951,8 +45951,7 @@ whammy whammy w_B ae_I m_I iy_E
 wharf wharf hh_B w_I ao_I r_I f_E
 wharf wharf w_B ao_I r_I f_E
 wharton wharton w_B ao_I r_I t_I ah_I n_E
-what what hh_B w_I ah_I t_E
-what what w_B ah_I t_E
+what what w_B aa_I t_E
 what'd what'd hh_B w_I ah_I t_I ih_I d_E
 what'd what'd w_B ah_I t_I ih_I d_E
 what'll what'll hh_B w_I ah_I t_I ah_I l_E
@@ -46305,8 +46304,7 @@ wilkes wilkes w_B ih_I l_I k_I s_E
 wilkins wilkins w_B ih_I l_I k_I ih_I n_I z_E
 wilkinson wilkinson w_B ih_I l_I k_I ah_I n_I s_I ah_I n_E
 wilkinson wilkinson w_B ih_I l_I k_I ih_I n_I s_I ah_I n_E
-will will w_B ah_I l_E
-will will w_B ih_I l_E
+will will w_I ih_I l_E
 willa willa w_B ih_I l_I ah_E
 willamette willamette w_B ah_I l_I ae_I m_I ah_I t_E
 willamette willamette w_B ih_I l_I ah_I m_I eh_I t_E
@@ -46967,15 +46965,9 @@ youngster youngster y_B ah_I ng_I s_I t_I er_E
 youngsters youngsters y_B ah_I ng_I s_I t_I er_I z_E
 youngstown youngstown y_B ah_I ng_I z_I t_I aw_I n_E
 your your y_B ao_I r_E
-your your y_B uh_I r_E
 yours yours y_B ao_I r_I z_E
-yours yours y_B er_I z_E
-yours yours y_B uh_I r_I z_E
 yourself yourself y_B ao_I r_I s_I eh_I l_I f_E
-yourself yourself y_B er_I s_I eh_I l_I f_E
-yourself yourself y_B uh_I r_I s_I eh_I l_I f_E
 yourselves yourselves y_B ao_I r_I s_I eh_I l_I v_I z_E
-yourselves yourselves y_B uh_I r_I s_I eh_I l_I v_I z_E
 yous yous y_B uw_I s_E
 youth youth y_B uw_I th_E
 youthful youthful y_B uw_I th_I f_I ah_I l_E

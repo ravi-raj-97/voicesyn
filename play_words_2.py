@@ -3,14 +3,19 @@ Date : 8-5-19
 Description: Module to play sequence of sounds or produce an audio file with those sequence of sounds
 if name is gaven a .wav is generated. otherwise audio is played
 """
-from pydub import AudioSegment, playback
+from pydub import AudioSegment, playback, effects
 import pyaudio
 import wave
 import argparse
 import time
 
 
-def overlap(sound_1: AudioSegment, sound_2: AudioSegment, percent: float = .1) -> AudioSegment:
+def match_target_amplitude(sound, target_dBFS):
+    change_in_dBFS = target_dBFS - sound.dBFS
+    return sound.apply_gain(change_in_dBFS)
+
+
+def overlap(sound_1: AudioSegment, sound_2: AudioSegment, percent: float = .2) -> AudioSegment:
     """Overlap and add some percentage of sound 2 to the back of sound 1
     Args
         :param sound_1: (AudioSegment) The first sound
@@ -88,10 +93,10 @@ def generate_words_clip(name, source_folder, word_dicts, word_silence=200) -> No
             sound = AudioSegment.from_wav(diphone_sound_file)
 
             if index > 0:
-                word_sound = overlap(word_sound, sound)
+                word_sound = match_target_amplitude(overlap(word_sound, sound), -25)
             else:
-                word_sound = word_sound + sound
-        playback.play(word_sound)
+                word_sound = match_target_amplitude(word_sound + sound, -25)
+        # playback.play(word_sound)
             # final_sound = final_sound + AudioSegment.silent(diphone_silence)
         final_sound = final_sound + word_sound + AudioSegment.silent(word_silence)
     final_sound.export(name + '.wav', format='wav')
@@ -147,4 +152,6 @@ if __name__ == '__main__':
     word_silence = args.word_silence
     name = args.name
 
-    output(source_folder, word_list, dict_file, word_silence, name)
+    op = output(source_folder, word_list, dict_file, word_silence, name)
+    if len(op) < 1:
+        print('word not found')

@@ -25,8 +25,8 @@ with open('namelist.txt') as nf:
 
 
 def allowed_file(filename):
-    return '.' in filename and filename.rsplit('.', 1)[1].lower() in ALLOWED_EXTENSIONS
-    # return re.match("wl\d\d?.wav")
+    # return '.' in filename and filename.rsplit('.', 1)[1].lower() in ALLOWED_EXTENSIONS
+    return True if re.match(r"wl\d\d?.wav", filename) else False
 
 
 @app.route('/#home')
@@ -70,6 +70,9 @@ def upload():
                 return redirect('/#train')
             if file and allowed_file(file.filename):
                 filename = secure_filename(file.filename)
+            else:
+                flash('Error in filename/format for')
+                return redirect('/#train')
             print(filename, speakername, speakerpass)
             totalpath = UPLOAD_FOLDER + '/' + speakername
 
@@ -100,7 +103,12 @@ def upload():
             print(fne)
             textpath = 'uploaded_recordings/' + fne + '.txt'
             folderpath = 'uploaded_recordings/' + speakername + '/diphones'
-            cs.generate_diphones(filepath, textpath, folderpath, 0.01, 0.05)
+            try:
+                cs.generate_diphones(filepath, textpath, folderpath, 0.01, 0.05)
+            except Exception as e:
+                flash('Error occured for file', file.filename)
+                flash('Please retry')
+                return redirect('/#train')
         # audio_file, transcript_file, output_folder, pre_padding=0.0, post_padding=0.0)
         return redirect('/#train')
 
