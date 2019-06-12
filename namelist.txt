@@ -1,9 +1,1 @@
-Ravi,ravi1234
-Raj,raj12345
-Aksh,aksh1234
-Nish,nishi123
-David,david123
-Sufi,sufi12346
-admin,pass
 david,dave
-dave_last,dave

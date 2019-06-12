@@ -12,16 +12,37 @@ app = Flask(__name__, static_url_path='/static')
 app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
 app.secret_key = 'hello'
 app.config['SEND_FILE_MAX_AGE_DEFAULT'] = 0
-name_list = []
+name_list = set()
 users = dict()
 
-with open('namelist.txt') as nf:
-    for line in nf:
-        row = line.strip().split(',')
-        name = row[0]
-        passwd = row[1]
-        users[name] = passwd
-        name_list.append(name)
+
+def num_to_str(str_with_num: str):
+    str_without_num = str_with_num.replace('1', 'one ')\
+                        .replace('2', 'two ')\
+                        .replace('3', 'three ')\
+                        .replace('4', 'four ')\
+                        .replace('5', 'five ')\
+                        .replace('6', 'six ')\
+                        .replace('7', 'seven ')\
+                        .replace('8', 'eight ')\
+                        .replace('9', 'nine ')\
+                        .replace('0', 'zero ')
+    return str_without_num
+
+
+def fill_namelist():
+    with open('namelist.txt') as nf:
+        global name_list
+        name_list = []
+        for line in nf:
+            row = line.strip().split(',')
+            name = row[0]
+            passwd = row[1]
+            users[name] = passwd
+            name_list.append(name)
+
+
+fill_namelist()
 
 
 def allowed_file(filename):
@@ -71,7 +92,7 @@ def upload():
             if file and allowed_file(file.filename):
                 filename = secure_filename(file.filename)
             else:
-                flash('Error in filename/format for')
+                flash('Error in filename/format')
                 return redirect('/#train')
             print(filename, speakername, speakerpass)
             totalpath = UPLOAD_FOLDER + '/' + speakername
@@ -86,14 +107,14 @@ def upload():
                         os.mkdir(totalpath + '/diphones')
                     print('\n\n\n\n\n\nadding extra files')
             else:
-                name_list.append(speakername)
+
                 if not os.path.exists(totalpath):
                     os.mkdir(totalpath)
                     os.mkdir(totalpath + '/diphones')
                     with open('namelist.txt', 'a') as nf:
                         newline = speakername + "," + speakerpass + "\n"
                         nf.write(newline)
-
+            fill_namelist()
             file.save(os.path.join(totalpath, filename))
             filepath = 'uploaded_recordings/' + speakername + '/' + filename
             uploadedfiles.append(filepath)
@@ -128,6 +149,7 @@ def syn():
 
         diphone_path = UPLOAD_FOLDER + '/' + speakername + '/diphones'
         output_path = UPLOAD_FOLDER + '/' + speakername + '/generated'
+        textcontent = num_to_str(textcontent)
         res = re.findall(r'\w+', textcontent)
         print('words are ', res)
         op = pw2.output(diphone_path, res, 'split.txt', 0.2, output_path)

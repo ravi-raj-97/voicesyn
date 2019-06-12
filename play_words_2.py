@@ -15,7 +15,7 @@ def match_target_amplitude(sound, target_dBFS):
     return sound.apply_gain(change_in_dBFS)
 
 
-def overlap(sound_1: AudioSegment, sound_2: AudioSegment, percent: float = .2) -> AudioSegment:
+def overlap(sound_1: AudioSegment, sound_2: AudioSegment, percent: float = .1) -> AudioSegment:
     """Overlap and add some percentage of sound 2 to the back of sound 1
     Args
         :param sound_1: (AudioSegment) The first sound
